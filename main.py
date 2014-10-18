@@ -12,7 +12,17 @@ from node import *
 from utils import *
 from position import *
 from aStarUtils import *
+from gui import Ui_MainWindow
+from PySide import QtCore, QtGui
+import sys
 
+class ControlMainWindow(QtGui.QMainWindow):
+	def __init__(self, parent=None):
+		super(ControlMainWindow, self).__init__(parent)
+		self.ui = Ui_MainWindow()
+		self.ui.setupUi(self)
+	def customSetUp(self):
+		pass
 
 def main():
 	
@@ -85,6 +95,13 @@ def main():
 
 	print_solution(selected_node,open_list)
 
+	app = QtGui.QApplication(sys.argv)
+	mySW = ControlMainWindow()
+	mySW.customSetUp()
+	mySW.show()
+	sys.exit(app.exec_())
+
 
 if __name__ == "__main__":
-   main()
+  	main()
+  	
