@@ -1,5 +1,10 @@
  # -*- coding: utf-8 -
+''' 
 
+Juan Luis Pérez Valbuena
+Ingeniería del Conocimiento - Práctica 1 - Algoritmo A* 
+
+'''
 import random
 
 ''' Metodos que definen el quicksort ''' 

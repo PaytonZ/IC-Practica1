@@ -1,5 +1,14 @@
  # -*- coding: utf-8 -
+''' 
+
+Juan Luis Pérez Valbuena
+Ingeniería del Conocimiento - Práctica 1 - Algoritmo A* 
+
+'''
+
 import math
+
+
 ''' Clase Nodo :
 x : posicion x del nodo
 y : posicion y del nodo

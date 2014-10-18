@@ -1,48 +1,48 @@
  # -*- coding: utf-8 -
+''' 
+
+Juan Luis Pérez Valbuena
+Ingeniería del Conocimiento - Práctica 1 - Algoritmo A* 
+
+'''
+
 import math
 from globals import *
-from node import Node
+from node import *
 from utils import *
-from position import Position
-
-
-open_list = []
-
-
-mapa = [[0 for x in xrange(6)] for x in xrange(6)] 
-for x in range(LOWER_LIMIT_X,UPPER_LIMIT_X):
-	for y in range(LOWER_LIMIT_Y,UPPER_LIMIT_Y):
-		#print ('%s + %s' % (x,y))
-		mapa[x][y]=Node(x,y,False,0)
-
-
-
-obstacles = [[0 for x in xrange(6)] for x in xrange(6)]
-
-def put_obstacle(x,y):
-	obstacles[x][y] = mapa[x][y] = Node(x,y,True,0)
-
-put_obstacle(3,0)
-put_obstacle(3,1)
-put_obstacle(3,2)
-put_obstacle(3,3)
-put_obstacle(3,4)
-
-
-
-
+from position import *
+from aStarUtils import *
 
 
 def main():
 	
 	''' 1. Colocar el nodo de comienzo en la lista ABIERTA y 
 	calcular la función de coste f(n), siendo ahora g(n) = 0 y h(n) la distancia entre la posición actual y la meta.'''
+	open_list = []
+
+	map = [[0 for x in xrange(6)] for x in xrange(6)] 
+	for x in range(LOWER_LIMIT_X,UPPER_LIMIT_X):
+		for y in range(LOWER_LIMIT_Y,UPPER_LIMIT_Y):
+		#print ('%s + %s' % (x,y))
+			map[x][y]=Node(x,y,False,0)
+
+	obstacles = [[0 for x in xrange(6)] for x in xrange(6)]
+
 	origin_position = Position(origin,origin)
 	origin_position.is_open = True
 	open_list.append(origin_position)
-	calculate_open_list()
+	calculate_open_list(open_list)
 	selected_node = select_successor_node(open_list)
 	'''2. Los obstáculos se incluyen directamente en la lista CERRADA.'''
+
+
+	put_obstacle(3,0,map,obstacles)
+	put_obstacle(3,1,map,obstacles)
+	put_obstacle(3,2,map,obstacles)
+	put_obstacle(3,3,map,obstacles)
+	put_obstacle(3,4,map,obstacles)
+
+
 	for o in obstacles:
 		for j in o:
 			if (j is type(Node)):
@@ -68,7 +68,7 @@ def main():
 	'''Ir al paso 3'''
 
 	while selected_node is not None and selected_node.actualnode != finish  :
-		candidates = make_expansion(selected_node.actualnode)
+		candidates = make_expansion(selected_node.actualnode,map)
 		for c in candidates:
 			exist_node = False
 			for p in open_list:
@@ -78,12 +78,12 @@ def main():
 				position_candidate = Position(c,selected_node.actualnode)
 				open_list.append(position_candidate)
 		selected_node.is_open = False
-		calculate_open_list()
+		calculate_open_list(open_list)
 		selected_node = select_successor_node(open_list)
 		for i in range(len(open_list)):
 			print ("ID: %d Position->%s" %(i , open_list[i] ))
 
-	print_solution(selected_node)
+	print_solution(selected_node,open_list)
 
 
 if __name__ == "__main__":

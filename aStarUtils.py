@@ -1,8 +1,16 @@
  # -*- coding: utf-8 -
+''' 
+
+Juan Luis Pérez Valbuena
+Ingeniería del Conocimiento - Práctica 1 - Algoritmo A* 
+
+'''
+
 from utils import *
+from globals import *
 
 ''' Realiza el calculo de la lista. Calcula tanto G como H como F y ordena la lista por menor F.'''
-def calculate_open_list():
+def calculate_open_list(open_list):
 	for p in open_list:
 		if p.is_open:
 			p.function_g()
@@ -15,24 +23,31 @@ def select_successor_node(list):
 	for c in list:
 		if(c.is_open):
 			return c
+
 '''Busca la posicion cuyo nodo sea el pasado por paramétro'''
-def search_position_with_node(node):
-	for c in open_list:
+def search_position_with_node(node,list):
+	for c in list:
 		if(c.actualnode == node):
 			return c
+
 ''' Realiza la expansion del nodo hacia todas las direcciones posibles.
 No considera los nodos no acessibles ''' 
-def make_expansion(node):
+def make_expansion(node,map):
 	candidates = []
 	for x in range(-1,2):
 		for y in range(-1,2):
 			new_x = node.x+x;
 			new_y = node.y+y;
-			if (new_x >= LOWER_LIMIT_X and new_x < UPPER_LIMIT_X) and (new_y >= LOWER_LIMIT_Y and new_y < UPPER_LIMIT_Y) and (mapa[new_x][new_y].forbidden==False):
-				candidates.append(mapa[new_x][new_y])
+			if (new_x >= LOWER_LIMIT_X and new_x < UPPER_LIMIT_X) and (new_y >= LOWER_LIMIT_Y and new_y < UPPER_LIMIT_Y) and (map[new_x][new_y].forbidden==False):
+				candidates.append(map[new_x][new_y])
 	return candidates
+
 ''' Dada una solución , imprime por consola la secuencia de pasos'''
-def print_solution(solution):
+def print_solution(solution,list):
 	print solution.actualnode
 	if(solution.actualnode != solution.fathernode):
-		print_solution(search_position_with_node(solution.fathernode))
+		print_solution(search_position_with_node(solution.fathernode,list),list)
+
+''' Define un obstaculo inatravesable en la posicion (x,y)'''
+def put_obstacle(x,y,map_list,obstacle_list):
+	obstacle_list[x][y] = map_list[x][y] = Node(x,y,True,0)

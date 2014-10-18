@@ -1,4 +1,10 @@
  # -*- coding: utf-8 -
+''' 
+
+Juan Luis Pérez Valbuena
+Ingeniería del Conocimiento - Práctica 1 - Algoritmo A* 
+
+'''
 
 from globals import *
 ''' Define una clase Posicion para resolver el problema del A*.

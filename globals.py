@@ -1,4 +1,11 @@
  # -*- coding: utf-8 -
+''' 
+
+Juan Luis Pérez Valbuena
+Ingeniería del Conocimiento - Práctica 1 - Algoritmo A* 
+
+'''
+
 from node import Node
 
 UPPER_LIMIT_X = 6
