@@ -15,6 +15,9 @@ LOWER_LIMIT_Y = 0
 
 global origin
 global finish
+global obstacles
+
+obstacles = [[0 for x in xrange(6)] for x in xrange(6)]
 
 origin = Node(2,3,False,0)
 finish = Node(5,0,False,0)

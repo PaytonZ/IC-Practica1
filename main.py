@@ -16,13 +16,38 @@ from gui import Ui_MainWindow
 from PySide import QtCore, QtGui
 import sys
 
+def handleTableClick(row,column):
+	print "(%d, %d)" % (row , column)
+
 class ControlMainWindow(QtGui.QMainWindow):
 	def __init__(self, parent=None):
 		super(ControlMainWindow, self).__init__(parent)
 		self.ui = Ui_MainWindow()
 		self.ui.setupUi(self)
 	def customSetUp(self):
-		pass
+		
+		table = self.ui.mainboard
+		table.setRowCount(6)
+		table.setColumnCount(6)
+	 	table.setHorizontalHeaderLabels(('0', '1', '2' , '3' , '4' ,'5'))
+		table.setVerticalHeaderLabels(('0', '1', '2' , '3' , '4' ,'5'))
+		table.cellClicked.connect(handleTableClick)
+		
+		#(y,x)
+		table.setItem(origin.y, origin.x, QtGui.QTableWidgetItem())
+		table.item(origin.y, origin.x).setBackground(QtGui.QColor(100,100,150))
+
+		table.setItem(finish.y, finish.x, QtGui.QTableWidgetItem())
+		table.item(finish.y, finish.x).setBackground(QtGui.QColor(100,100,150))
+
+
+		for o in obstacles:
+			for j in o:
+				if(isinstance(j,Node)):
+					table.setItem(j.y, j.x, QtGui.QTableWidgetItem())
+					table.item(j.y, j.x).setBackground(QtGui.QColor(255,0,0))
+		
+    	
 
 def main():
 	
@@ -36,7 +61,7 @@ def main():
 		#print ('%s + %s' % (x,y))
 			map[x][y]=Node(x,y,False,0)
 
-	obstacles = [[0 for x in xrange(6)] for x in xrange(6)]
+	
 
 	origin_position = Position(origin,origin)
 	origin_position.is_open = True
