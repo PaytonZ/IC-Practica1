@@ -7,6 +7,8 @@ Ingeniería del Conocimiento - Práctica 1 - Algoritmo A*
 '''
 
 from globals import *
+from aStarUtils import *
+
 ''' Define una clase Posicion para resolver el problema del A*.
 Actualnode : define el nodo actual 
 fathernode : define el nodo padre
@@ -23,14 +25,16 @@ class Position(object):
 		self.g = 0.0
 		self.h = 0.0
 		self.f = 0.0
-	def function_g(self):
-		self.g = float(self.actualnode.euclidean_distance(origin))
+	def function_g(self,list):
+		fatherpos = search_position_with_node(self.fathernode,list)
+		#self.g = float(self.actualnode.euclidean_distance(origin))
+		self.g = fatherpos.g + float(self.actualnode.euclidean_distance(self.fathernode))
 		return self.g
 	def function_h(self):
 		self.h = float(self.actualnode.euclidean_distance(finish))
 		return self.h
 	def function_f(self):
-		self.f = self.function_g() + self.function_h() 
+		self.f = self.g + self.h 
 		return self.f
 	def __lt__(self,other):
 		return self.f < other.f

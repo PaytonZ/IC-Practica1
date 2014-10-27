@@ -7,13 +7,15 @@ Ingeniería del Conocimiento - Práctica 1 - Algoritmo A*
 '''
 
 from utils import *
-from globals import *
+from globalsA import *
+from node import Node
+
 
 ''' Realiza el calculo de la lista. Calcula tanto G como H como F y ordena la lista por menor F.'''
 def calculate_open_list(open_list):
 	for p in open_list:
 		if p.is_open:
-			p.function_g()
+			p.function_g(open_list)
 			p.function_h()
 			p.function_f()
 	quicksort(open_list)
@@ -38,7 +40,7 @@ def make_expansion(node,map):
 		for y in range(-1,2):
 			new_x = node.x+x;
 			new_y = node.y+y;
-			if (new_x >= LOWER_LIMIT_X and new_x < UPPER_LIMIT_X) and (new_y >= LOWER_LIMIT_Y and new_y < UPPER_LIMIT_Y) and (map[new_x][new_y].forbidden==False):
+			if (new_x >= lower_limit_x() and new_x < upper_limit_x()) and (new_y >= lower_limit_y() and new_y < upper_limit_y()) and (map[new_x][new_y].forbidden==False):
 				candidates.append(map[new_x][new_y])
 	return candidates
 

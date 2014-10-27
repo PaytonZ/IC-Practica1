@@ -7,7 +7,7 @@ Ingeniería del Conocimiento - Práctica 1 - Algoritmo A*
 '''
 
 import math
-from globals import *
+from globalsA import *
 from node import *
 from utils import *
 from position import *
@@ -15,6 +15,9 @@ from aStarUtils import *
 from gui import Ui_MainWindow
 from PySide import QtCore, QtGui
 import sys
+
+
+
 
 def handleTableClick(row,column):
 	print "(%d, %d)" % (row , column)
@@ -27,41 +30,73 @@ class ControlMainWindow(QtGui.QMainWindow):
 	def customSetUp(self):
 		
 		table = self.ui.mainboard
-		table.setRowCount(6)
-		table.setColumnCount(6)
+		table.setRowCount(upper_limit_x())
+		table.setColumnCount(upper_limit_y())
 	 	table.setHorizontalHeaderLabels(('0', '1', '2' , '3' , '4' ,'5'))
 		table.setVerticalHeaderLabels(('0', '1', '2' , '3' , '4' ,'5'))
 		table.cellClicked.connect(handleTableClick)
-		
+
 		#(y,x)
-		table.setItem(origin.y, origin.x, QtGui.QTableWidgetItem())
-		table.item(origin.y, origin.x).setBackground(QtGui.QColor(100,100,150))
+		#table.setItem(origin.y, origin.x, QtGui.QTableWidgetItem())
+		#table.item(origin.y, origin.x).setBackground(QtGui.QColor(100,100,150))
 
-		table.setItem(finish.y, finish.x, QtGui.QTableWidgetItem())
-		table.item(finish.y, finish.x).setBackground(QtGui.QColor(100,100,150))
+		#table.setItem(finish.y, finish.x, QtGui.QTableWidgetItem())
+		#table.item(finish.y, finish.x).setBackground(QtGui.QColor(100,100,150))
+
+		self.ui.solveButton.clicked.connect(start_a_star)
+		self.ui.cleanButton.clicked.connect(clean_board)
+
+		QtCore.QObject.connect(self.ui.aboutASTAR, QtCore.SIGNAL('triggered()'), action_about_a_star)
+
+def createMessagebox(title,msg):
+	
+	QtGui.QMessageBox.information(mySW, title, msg)
+
+def clean_board():
+	table = mySW.ui.mainboard
+	for x in range(lower_limit_y(),upper_limit_x()):
+		for y in range(lower_limit_y(),upper_limit_x()):
+			table.setItem(y, x, QtGui.QTableWidgetItem())
+			table.item(y, x).setBackground(QtGui.QColor(255,255,255))
+
+def start_a_star():
+	clean_board()
+	solve_a_star()
+
+def action_about_a_star():
+	aboutmsg = "Program for solving the A Star problem \n"
+	aboutmsg = aboutmsg +"Icons made by Situ Herrera from www.flaticon.com is licensed by" 
+	aboutmsg = aboutmsg + " Creative Commons BY 3.0"
+	
+	createMessagebox("About A Start", aboutmsg)
 
 
-		for o in obstacles:
+''' Dada una solución , imprime por la interfaz la secuencia de pasos'''
+def paint_solution(solution,list):
+
+	table = mySW.ui.mainboard
+	table.setItem(solution.actualnode.y, solution.actualnode.x, QtGui.QTableWidgetItem())
+	table.item(solution.actualnode.y, solution.actualnode.x).setBackground(QtGui.QColor(100,100,150))
+	for o in obstacles:
 			for j in o:
 				if(isinstance(j,Node)):
 					table.setItem(j.y, j.x, QtGui.QTableWidgetItem())
 					table.item(j.y, j.x).setBackground(QtGui.QColor(255,0,0))
-		
+	if(solution.actualnode != solution.fathernode):
+		paint_solution(search_position_with_node(solution.fathernode,list),list)	
     	
 
-def main():
+def solve_a_star():
 	
 	''' 1. Colocar el nodo de comienzo en la lista ABIERTA y 
 	calcular la función de coste f(n), siendo ahora g(n) = 0 y h(n) la distancia entre la posición actual y la meta.'''
 	open_list = []
 
-	map = [[0 for x in xrange(6)] for x in xrange(6)] 
-	for x in range(LOWER_LIMIT_X,UPPER_LIMIT_X):
-		for y in range(LOWER_LIMIT_Y,UPPER_LIMIT_Y):
+	map = [[0 for x in xrange(upper_limit_x())] for x in xrange(upper_limit_y())] 
+	for x in range(lower_limit_y(),upper_limit_x()):
+		for y in range(lower_limit_y(),upper_limit_x()):
 		#print ('%s + %s' % (x,y))
 			map[x][y]=Node(x,y,False,0)
-
-	
 
 	origin_position = Position(origin,origin)
 	origin_position.is_open = True
@@ -69,14 +104,12 @@ def main():
 	calculate_open_list(open_list)
 	selected_node = select_successor_node(open_list)
 	'''2. Los obstáculos se incluyen directamente en la lista CERRADA.'''
-
-
 	put_obstacle(3,0,map,obstacles)
 	put_obstacle(3,1,map,obstacles)
 	put_obstacle(3,2,map,obstacles)
 	put_obstacle(3,3,map,obstacles)
 	put_obstacle(3,4,map,obstacles)
-
+	
 
 	for o in obstacles:
 		for j in o:
@@ -115,18 +148,24 @@ def main():
 		selected_node.is_open = False
 		calculate_open_list(open_list)
 		selected_node = select_successor_node(open_list)
-		for i in range(len(open_list)):
-			print ("ID: %d Position->%s" %(i , open_list[i] ))
+		#for i in range(len(open_list)):
+			#print ("ID: %d Position->%s" %(i , open_list[i] ))
 
-	print_solution(selected_node,open_list)
+	paint_solution(selected_node,open_list)
 
-	app = QtGui.QApplication(sys.argv)
+
+	#print_solution(selected_node,open_list)
+
+	
+
+if __name__ == "__main__":
+  	app = QtGui.QApplication(sys.argv)
 	mySW = ControlMainWindow()
 	mySW.customSetUp()
 	mySW.show()
 	sys.exit(app.exec_())
+	
+  	
 
-
-if __name__ == "__main__":
-  	main()
+  	
   	
