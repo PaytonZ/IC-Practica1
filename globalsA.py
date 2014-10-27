@@ -26,13 +26,4 @@ def lower_limit_y():
 	return LOWER_LIMIT_Y
 
 
-global origin
-global finish
-global obstacles
 
-obstacles = [[0 for x in xrange(6)] for x in xrange(6)]
-
-global mySW
-
-origin = Node(2,3,False,0)
-finish = Node(5,0,False,0)

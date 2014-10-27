@@ -116,8 +116,8 @@
    <widget class="QPushButton" name="solveButton">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>10</y>
+      <x>220</x>
+      <y>50</y>
       <width>80</width>
       <height>23</height>
      </rect>
@@ -138,7 +138,7 @@
    <widget class="QPushButton" name="cleanButton">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>320</x>
       <y>50</y>
       <width>81</width>
       <height>23</height>
@@ -151,29 +151,17 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="randomButton">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>220</x>
       <y>10</y>
-      <width>80</width>
+      <width>91</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>Wut</string>
-    </property>
-    <property name="checkable">
-     <bool>false</bool>
-    </property>
-    <property name="autoDefault">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>true</bool>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
+     <string>Random Map</string>
     </property>
    </widget>
   </widget>
@@ -190,7 +178,7 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionNew_Map"/>
+    <addaction name="actionNewMap"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
@@ -203,7 +191,7 @@
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionNew_Map">
+  <action name="actionNewMap">
    <property name="text">
     <string>New Map</string>
    </property>

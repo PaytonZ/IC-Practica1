@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'UI/GUI.ui'
 #
-# Created: Mon Oct 27 12:33:24 2014
+# Created: Mon Oct 27 17:04:11 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -57,22 +57,18 @@ class Ui_MainWindow(object):
         self.mainboard.setRowCount(0)
         self.verticalLayout.addWidget(self.mainboard)
         self.solveButton = QtGui.QPushButton(self.centralwidget)
-        self.solveButton.setGeometry(QtCore.QRect(200, 10, 80, 23))
+        self.solveButton.setGeometry(QtCore.QRect(220, 50, 80, 23))
         self.solveButton.setCursor(QtCore.Qt.ArrowCursor)
         self.solveButton.setDefault(True)
         self.solveButton.setFlat(False)
         self.solveButton.setObjectName("solveButton")
         self.cleanButton = QtGui.QPushButton(self.centralwidget)
-        self.cleanButton.setGeometry(QtCore.QRect(200, 50, 81, 23))
+        self.cleanButton.setGeometry(QtCore.QRect(320, 50, 81, 23))
         self.cleanButton.setDefault(True)
         self.cleanButton.setObjectName("cleanButton")
-        self.pushButton = QtGui.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(300, 10, 80, 23))
-        self.pushButton.setCheckable(False)
-        self.pushButton.setAutoDefault(False)
-        self.pushButton.setDefault(True)
-        self.pushButton.setFlat(False)
-        self.pushButton.setObjectName("pushButton")
+        self.randomButton = QtGui.QPushButton(self.centralwidget)
+        self.randomButton.setGeometry(QtCore.QRect(220, 10, 91, 23))
+        self.randomButton.setObjectName("randomButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 728, 20))
@@ -85,13 +81,13 @@ class Ui_MainWindow(object):
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.actionNew_Map = QtGui.QAction(MainWindow)
-        self.actionNew_Map.setObjectName("actionNew_Map")
+        self.actionNewMap = QtGui.QAction(MainWindow)
+        self.actionNewMap.setObjectName("actionNewMap")
         self.actionExit = QtGui.QAction(MainWindow)
         self.actionExit.setObjectName("actionExit")
         self.aboutASTAR = QtGui.QAction(MainWindow)
         self.aboutASTAR.setObjectName("aboutASTAR")
-        self.menuArchivo.addAction(self.actionNew_Map)
+        self.menuArchivo.addAction(self.actionNewMap)
         self.menuArchivo.addAction(self.actionExit)
         self.menuAbout.addAction(self.aboutASTAR)
         self.menubar.addAction(self.menuArchivo.menuAction())
@@ -106,10 +102,10 @@ class Ui_MainWindow(object):
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "Ingeniería del Conocimiento", None, QtGui.QApplication.UnicodeUTF8))
         self.solveButton.setText(QtGui.QApplication.translate("MainWindow", "Solve!", None, QtGui.QApplication.UnicodeUTF8))
         self.cleanButton.setText(QtGui.QApplication.translate("MainWindow", "Clean Map!", None, QtGui.QApplication.UnicodeUTF8))
-        self.pushButton.setText(QtGui.QApplication.translate("MainWindow", "Wut", None, QtGui.QApplication.UnicodeUTF8))
+        self.randomButton.setText(QtGui.QApplication.translate("MainWindow", "Random Map", None, QtGui.QApplication.UnicodeUTF8))
         self.menuArchivo.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.menuAbout.setTitle(QtGui.QApplication.translate("MainWindow", "More", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionNew_Map.setText(QtGui.QApplication.translate("MainWindow", "New Map", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionNewMap.setText(QtGui.QApplication.translate("MainWindow", "New Map", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
         self.aboutASTAR.setText(QtGui.QApplication.translate("MainWindow", "About A Star Solver", None, QtGui.QApplication.UnicodeUTF8))
 
