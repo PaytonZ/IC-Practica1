@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'UI/GUI.ui'
 #
-# Created: Mon Oct 27 12:05:09 2014
+# Created: Mon Oct 27 12:33:24 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -66,6 +66,13 @@ class Ui_MainWindow(object):
         self.cleanButton.setGeometry(QtCore.QRect(200, 50, 81, 23))
         self.cleanButton.setDefault(True)
         self.cleanButton.setObjectName("cleanButton")
+        self.pushButton = QtGui.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(300, 10, 80, 23))
+        self.pushButton.setCheckable(False)
+        self.pushButton.setAutoDefault(False)
+        self.pushButton.setDefault(True)
+        self.pushButton.setFlat(False)
+        self.pushButton.setObjectName("pushButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 728, 20))
@@ -99,6 +106,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "Ingeniería del Conocimiento", None, QtGui.QApplication.UnicodeUTF8))
         self.solveButton.setText(QtGui.QApplication.translate("MainWindow", "Solve!", None, QtGui.QApplication.UnicodeUTF8))
         self.cleanButton.setText(QtGui.QApplication.translate("MainWindow", "Clean Map!", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton.setText(QtGui.QApplication.translate("MainWindow", "Wut", None, QtGui.QApplication.UnicodeUTF8))
         self.menuArchivo.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
         self.menuAbout.setTitle(QtGui.QApplication.translate("MainWindow", "More", None, QtGui.QApplication.UnicodeUTF8))
         self.actionNew_Map.setText(QtGui.QApplication.translate("MainWindow", "New Map", None, QtGui.QApplication.UnicodeUTF8))
