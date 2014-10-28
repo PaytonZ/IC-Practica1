@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'UI/GUI.ui'
 #
-# Created: Mon Oct 27 17:04:11 2014
+# Created: Tue Oct 28 12:30:30 2014
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PySide import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(728, 654)
+        MainWindow.resize(939, 681)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Maximum, QtGui.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -57,21 +57,22 @@ class Ui_MainWindow(object):
         self.mainboard.setRowCount(0)
         self.verticalLayout.addWidget(self.mainboard)
         self.solveButton = QtGui.QPushButton(self.centralwidget)
-        self.solveButton.setGeometry(QtCore.QRect(220, 50, 80, 23))
+        self.solveButton.setGeometry(QtCore.QRect(220, 12, 91, 61))
         self.solveButton.setCursor(QtCore.Qt.ArrowCursor)
         self.solveButton.setDefault(True)
         self.solveButton.setFlat(False)
         self.solveButton.setObjectName("solveButton")
         self.cleanButton = QtGui.QPushButton(self.centralwidget)
-        self.cleanButton.setGeometry(QtCore.QRect(320, 50, 81, 23))
+        self.cleanButton.setGeometry(QtCore.QRect(320, 50, 91, 23))
         self.cleanButton.setDefault(True)
         self.cleanButton.setObjectName("cleanButton")
         self.randomButton = QtGui.QPushButton(self.centralwidget)
-        self.randomButton.setGeometry(QtCore.QRect(220, 10, 91, 23))
+        self.randomButton.setGeometry(QtCore.QRect(320, 20, 91, 23))
+        self.randomButton.setDefault(True)
         self.randomButton.setObjectName("randomButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 728, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 939, 20))
         self.menubar.setObjectName("menubar")
         self.menuArchivo = QtGui.QMenu(self.menubar)
         self.menuArchivo.setObjectName("menuArchivo")
@@ -98,7 +99,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("MainWindow", "Juan Luis Pérez", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("MainWindow", "Juan Luis Pérez Valbuena", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "Ingeniería del Conocimiento", None, QtGui.QApplication.UnicodeUTF8))
         self.solveButton.setText(QtGui.QApplication.translate("MainWindow", "Solve!", None, QtGui.QApplication.UnicodeUTF8))
         self.cleanButton.setText(QtGui.QApplication.translate("MainWindow", "Clean Map!", None, QtGui.QApplication.UnicodeUTF8))
@@ -109,3 +110,4 @@ class Ui_MainWindow(object):
         self.actionExit.setText(QtGui.QApplication.translate("MainWindow", "Exit", None, QtGui.QApplication.UnicodeUTF8))
         self.aboutASTAR.setText(QtGui.QApplication.translate("MainWindow", "About A Star Solver", None, QtGui.QApplication.UnicodeUTF8))
 
+import images_rc

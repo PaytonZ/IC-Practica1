@@ -16,11 +16,11 @@ forbidden : indica si esta prohibido el paso o no
 penality : indica el nivel de penalización por el paso por este nodo
 '''
 class Node(object):
-	def __init__(self,x,y,forbidden,penality):
+	def __init__(self,x,y,forbidden,penalty):
 		self.x = x 
 		self.y = y
 		self.forbidden = forbidden
-		self.penality = penality
+		self.penalty = penalty 
 	def euclidean_distance(self,nodo):
 		return float(math.sqrt(pow(self.x-nodo.x,2)+pow(self.y-nodo.y,2)))
 	def __str__(self):

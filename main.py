@@ -16,6 +16,7 @@ from gui import Ui_MainWindow
 from PySide import QtCore, QtGui
 import sys
 import random
+import images_rc
 
 
 start_set_x = -1
@@ -36,16 +37,23 @@ def handleTableClick(row,column):
 
 	print "(%d, %d)" % (row , column)
 	table = mySW.ui.mainboard
-	table.setItem(row, column, QtGui.QTableWidgetItem())
+	#table.setItem(row, column, QtGui.QTableWidgetItem())
 		
 	if(start_set_x == -1 or start_set_y==-1):
-		table.item(row, column).setText("START")
+		#table.item(row, column).setText("START")
+		icon2 = QtGui.QIcon()
+		icon2.addPixmap(QtGui.QPixmap(":/images/home.png"))
+		table.item(row,column).setIcon(icon2)
 		start_set_x = column
 		start_set_y = row
 		origin =  Node(start_set_x,start_set_y,False,0)
 	else:
 		if(finish_set_x == -1 or finish_set_y==-1):
-			table.item(row, column).setText("FINISH")
+			#table.item(row, column).setText("FINISH")
+			icon2 = QtGui.QIcon()
+			icon2.addPixmap(QtGui.QPixmap(":/images/finish.png"))
+			table.item(row,column).setIcon(icon2)
+			
 			finish_set_x = column
 			finish_set_y = row
 			finish = Node(finish_set_x,finish_set_y,False,0)
@@ -54,12 +62,16 @@ def handleTableClick(row,column):
 			 paint_obstacles()
 			 finish_set_x = -1 
 			 finish_set_y = -1
-			 table.item(row, column).setText("START")
+			 #table.item(row, column).setText("START")
+
+			 icon2 = QtGui.QIcon()
+			 icon2.addPixmap(QtGui.QPixmap(":/images/home.png"))
+			 table.item(row, column).setIcon(icon2)
 			 start_set_x = column
 			 start_set_y = row
 			 origin =  Node(start_set_x,start_set_y,False,0) 
 
-	table.item(row, column).setBackground(QtGui.QColor(100,100,150))
+	#table.item(row, column).setBackground(QtGui.QColor(100,100,150))
 	table.item(row, column).setSelected(False)
 	table.item(row, column).setForeground(QtGui.QColor(255,255,255))
 
@@ -71,6 +83,7 @@ class ControlMainWindow(QtGui.QMainWindow):
 	def customSetUp(self):
 		
 		initialize_map()
+		
 
 		table = self.ui.mainboard
 		table.setRowCount(upper_limit_x())
@@ -85,26 +98,30 @@ class ControlMainWindow(QtGui.QMainWindow):
 		#table.item(finish.y, finish.x).setBackground(QtGui.QColor(100,100,150))
 
 		self.ui.solveButton.clicked.connect(start_a_star)
-		self.ui.cleanButton.clicked.connect(clean_board)
+		self.ui.cleanButton.clicked.connect(action_clean_board)
 		self.ui.randomButton.clicked.connect(create_random_map)
 		QtCore.QObject.connect(self.ui.aboutASTAR, QtCore.SIGNAL('triggered()'), action_about_a_star)
 		QtCore.QObject.connect(self.ui.actionNewMap, QtCore.SIGNAL('triggered()'), action_new_map)
+
+		clean_board()
 
 def create_random_map():
 	global map1
 	global obstacles
 	initialize_map()
 	clean_board()
-	number_of_obstacles = int((upper_limit_x() * upper_limit_y()) / 4) ; # 25% of obstacles
+	number_of_obstacles = int((upper_limit_x() * upper_limit_y())) / 2 ; # 25% of obstacles
  	for k in range(0,number_of_obstacles):
  		x = random.randrange(upper_limit_x())
  		y = random.randrange(upper_limit_y())
- 		put_obstacle( x , y ,map1,obstacles)
+ 		if (k % 2 == 0 ):
+ 			map1[x][y] = Node(x,y,False,0.8)
+ 		else:
+ 			put_obstacle( x , y ,map1,obstacles)
  	paint_obstacles()
 
 
 def action_new_map():
-	
 	window = QtGui.QWidget(mySW.parent())
 	form_layout = QtGui.QFormLayout()
 	window.setLayout(form_layout)
@@ -113,7 +130,12 @@ def action_new_map():
 def createMessagebox(title,msg):
 	QtGui.QMessageBox.information(mySW, title, msg)
 
+def action_clean_board():
+	initialize_map()
+	clean_board()
+
 def clean_board():
+	
 	table = mySW.ui.mainboard
 	for x in range(lower_limit_y(),upper_limit_x()):
 		for y in range(lower_limit_y(),upper_limit_x()):
@@ -121,33 +143,46 @@ def clean_board():
 			table.item(y, x).setBackground(QtGui.QColor(255,255,255))
 
 def paint_obstacles():
+	global map1
 	table = mySW.ui.mainboard
 	for o in obstacles:
 			for j in o:
 				if(isinstance(j,Node)):
-					table.setItem(j.y, j.x, QtGui.QTableWidgetItem())
-					table.item(j.y, j.x).setBackground(QtGui.QColor(255,0,0))
+					#table.setItem(j.y, j.x, QtGui.QTableWidgetItem())
+					#table.item(j.y, j.x).setBackground(QtGui.QColor(255,0,0))
+					item = QtGui.QTableWidgetItem()
+					icon2 = QtGui.QIcon()
+					icon2.addPixmap(QtGui.QPixmap(":/images/rocks.png"))
+					table.item(j.y, j.x).setIcon(icon2)
+
+	
+	for x in range(lower_limit_y(),upper_limit_x()):
+		for y in range(lower_limit_y(),upper_limit_x()):
+			if(map1[x][y].penalty > 0):
+				#table.setItem(y, x, QtGui.QTableWidgetItem())
+				#table.item(y, x).setBackground(QtGui.QColor(175,175,175))
+				icon2 = QtGui.QIcon()
+				icon2.addPixmap(QtGui.QPixmap(":/images/rocks2.png"))
+				table.item(y, x).setIcon(icon2)
 
 def start_a_star():
 	clean_board()
 	paint_obstacles()
 	table = mySW.ui.mainboard
 	solve_a_star()
-	paint_obstacles()
+	#paint_obstacles()
 
 def action_about_a_star():
 	aboutmsg = "Program for solving the A Star problem \n"
-	aboutmsg = aboutmsg +"Icons made by Situ Herrera from www.flaticon.com is licensed by" 
+	aboutmsg = aboutmsg +"Icons made by Situ Herrera ,OCHA , Freepik and ICONS8 from www.flaticon.com is licensed by" 
 	aboutmsg = aboutmsg + " Creative Commons BY 3.0"
 	createMessagebox("About A Star", aboutmsg)
 
-
 ''' Dada una solución , imprime por la interfaz la secuencia de pasos'''
 def paint_solution(solution,list):
-
 	table = mySW.ui.mainboard
-	table.setItem(solution.actualnode.y, solution.actualnode.x, QtGui.QTableWidgetItem())
-	table.item(solution.actualnode.y, solution.actualnode.x).setBackground(QtGui.QColor(100,100,150))
+	#table.setItem(solution.actualnode.y, solution.actualnode.x, QtGui.QTableWidgetItem())
+	table.item(solution.actualnode.y, solution.actualnode.x).setBackground(QtGui.QColor(130,218,92))
 	if(solution.actualnode != solution.fathernode):
 		paint_solution(search_position_with_node(solution.fathernode,list),list)	
   
@@ -166,22 +201,14 @@ def solve_a_star():
 	''' 1. Colocar el nodo de comienzo en la lista ABIERTA y 
 	calcular la función de coste f(n), siendo ahora g(n) = 0 y h(n) la distancia entre la posición actual y la meta.'''
 	open_list = []
-
-	initialize_map()
-
+	
 	origin_position = Position(origin,origin)
 	origin_position.is_open = True
 	open_list.append(origin_position)
 	calculate_open_list(open_list)
 	selected_node = select_successor_node(open_list)
-	'''2. Los obstáculos se incluyen directamente en la lista CERRADA.
-	put_obstacle(3,0,map1,obstacles)
-	put_obstacle(3,1,map1,obstacles)
-	put_obstacle(3,2,map1,obstacles)
-	put_obstacle(3,3,map1,obstacles)
-	put_obstacle(3,4,map1,obstacles)'''
+	'''2. Los obstáculos se incluyen directamente en la lista CERRADA.'''
 	
-
 	for o in obstacles:
 		for j in o:
 			if (j is type(Node)):
@@ -189,7 +216,6 @@ def solve_a_star():
 				obs=Position(j,None)
 				obs.is_open=False
 				open_list.append(obs)
-	
 	'''3. 
 	Realizar expansion.
 	Eliminar de la lista ABIERTA el nodo con la función de coste de mínimo valor 
@@ -221,9 +247,11 @@ def solve_a_star():
 		selected_node = select_successor_node(open_list)
 		#for i in range(len(open_list)):
 			#print ("ID: %d Position->%s" %(i , open_list[i] ))
-
-	paint_solution(selected_node,open_list)
-	#print_solution(selected_node,open_list)
+	if(selected_node is None):
+		createMessagebox("Route Impossible", "The finish cannot be reached")
+	else:
+		paint_solution(selected_node,open_list)
+		#print_solution(selected_node,open_list)
 	
 
 if __name__ == "__main__":

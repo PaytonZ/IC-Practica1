@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/images">
-        <file>home62.png</file>
+        <file>home.png</file>
+        <file>rocks.png</file>
+        <file>rocks2.png</file>
+        <file>finish.png</file>
     </qresource>
 </RCC>

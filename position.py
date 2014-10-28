@@ -34,7 +34,7 @@ class Position(object):
 		self.h = float(self.actualnode.euclidean_distance(finish))
 		return self.h
 	def function_f(self):
-		self.f = self.g + self.h 
+		self.f = self.g + self.h + self.fathernode.penalty 
 		return self.f
 	def __lt__(self,other):
 		return self.f < other.f
