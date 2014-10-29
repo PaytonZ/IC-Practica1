@@ -24,7 +24,7 @@ class Node(object):
 	def euclidean_distance(self,nodo):
 		return float(math.sqrt(pow(self.x-nodo.x,2)+pow(self.y-nodo.y,2)))
 	def __str__(self):
-		return "({0},{1})".format(self.x,self.y)
+		return "({0},{1})".format(self.x,self.y) + " Forbiden %r penalty: %f" % (self.forbidden , self.penalty)
 	def __unicode__(self):
 		return self.__str__()
 	def __repr__(self):

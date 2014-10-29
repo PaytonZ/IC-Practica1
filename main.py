@@ -63,7 +63,6 @@ def handleTableClick(row,column):
 			 finish_set_x = -1 
 			 finish_set_y = -1
 			 #table.item(row, column).setText("START")
-
 			 icon2 = QtGui.QIcon()
 			 icon2.addPixmap(QtGui.QPixmap(":/images/home.png"))
 			 table.item(row, column).setIcon(icon2)
@@ -110,7 +109,7 @@ def create_random_map():
 	global obstacles
 	initialize_map()
 	clean_board()
-	number_of_obstacles = int((upper_limit_x() * upper_limit_y())) / 2 ; # 25% of obstacles
+	number_of_obstacles = int((upper_limit_x() * upper_limit_y())) / 2 ; # 50% of obstacles
  	for k in range(0,number_of_obstacles):
  		x = random.randrange(upper_limit_x())
  		y = random.randrange(upper_limit_y())
@@ -135,7 +134,6 @@ def action_clean_board():
 	clean_board()
 
 def clean_board():
-	
 	table = mySW.ui.mainboard
 	for x in range(lower_limit_y(),upper_limit_x()):
 		for y in range(lower_limit_y(),upper_limit_x()):
@@ -191,8 +189,8 @@ def initialize_map():
 	global obstacles
 	map1 = [[0 for x in xrange(upper_limit_x())] for x in xrange(upper_limit_y())]
 	obstacles = [[0 for x in xrange(upper_limit_x())] for x in xrange(upper_limit_y())]  	 
-	for x in range(lower_limit_y(),upper_limit_x()):
-		for y in range(lower_limit_y(),upper_limit_x()):
+	for x in range(lower_limit_x(),upper_limit_x()):
+		for y in range(lower_limit_y(),upper_limit_y()):
 		#print ('%s + %s' % (x,y))
 			map1[x][y]=Node(x,y,False,0)
 
@@ -216,6 +214,9 @@ def solve_a_star():
 				obs=Position(j,None)
 				obs.is_open=False
 				open_list.append(obs)
+
+	print map1
+
 	'''3. 
 	Realizar expansion.
 	Eliminar de la lista ABIERTA el nodo con la función de coste de mínimo valor 
