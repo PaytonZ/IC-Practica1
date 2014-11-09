@@ -6,9 +6,6 @@ Ingeniería del Conocimiento - Práctica 1 - Algoritmo A*
 
 '''
 from node import Node
-
-
-
 import math
 from globalsA import *
 from utils import *
@@ -52,7 +49,6 @@ def handleTableClick(row,column):
 			icon2 = QtGui.QIcon()
 			icon2.addPixmap(QtGui.QPixmap(":/images/finish.png"))
 			table.item(row,column).setIcon(icon2)
-			
 			finish_set_x = column
 			finish_set_y = row
 			set_finish(Node(finish_set_x,finish_set_y,False,0))
@@ -79,9 +75,7 @@ class ControlMainWindow(QtGui.QMainWindow):
 		self.ui = Ui_MainWindow()
 		self.ui.setupUi(self)
 	def customSetUp(self):
-		
 		initialize_map()
-		
 
 		table = self.ui.mainboard
 		table.setRowCount(upper_limit_x())
@@ -94,7 +88,6 @@ class ControlMainWindow(QtGui.QMainWindow):
 		#table.item(origin.y, origin.x).setBackground(QtGui.QColor(100,100,150))
 		#table.setItem(finish.y, finish.x, QtGui.QTableWidgetItem())
 		#table.item(finish.y, finish.x).setBackground(QtGui.QColor(100,100,150))
-
 		self.ui.solveButton.clicked.connect(start_a_star)
 		self.ui.cleanButton.clicked.connect(action_clean_board)
 		self.ui.randomButton.clicked.connect(create_random_map)
@@ -171,6 +164,7 @@ def start_a_star():
 
 def action_about_a_star():
 	aboutmsg = "Program for solving the A Star problem \n"
+	aboutmsg = "Developed by Juan Luis Perez  Complutense University of Madrid - https://github.com/paytonz  \n"
 	aboutmsg = aboutmsg +"Icons made by Situ Herrera ,OCHA , Freepik and ICONS8 from www.flaticon.com is licensed by" 
 	aboutmsg = aboutmsg + " Creative Commons BY 3.0"
 	createMessagebox("About A Star", aboutmsg)
@@ -205,7 +199,6 @@ def solve_a_star():
 	calculate_open_list(open_list)
 	selected_node = select_successor_node(open_list)
 	'''2. Los obstáculos se incluyen directamente en la lista CERRADA.'''
-	
 	for o in obstacles:
 		for j in o:
 			if (j is type(Node)):
@@ -213,9 +206,6 @@ def solve_a_star():
 				obs=Position(j,None)
 				obs.is_open=False
 				open_list.append(obs)
-
-	#print map1
-
 	'''3. 
 	Realizar expansion.
 	Eliminar de la lista ABIERTA el nodo con la función de coste de mínimo valor 
