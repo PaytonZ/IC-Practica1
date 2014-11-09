@@ -6,7 +6,7 @@ Ingeniería del Conocimiento - Práctica 1 - Algoritmo A*
 
 '''
 
-from globals import *
+from globalsA import *
 from aStarUtils import *
 
 ''' Define una clase Posicion para resolver el problema del A*.
@@ -31,7 +31,8 @@ class Position(object):
 		self.g = fatherpos.g + float(self.actualnode.euclidean_distance(self.fathernode))
 		return self.g
 	def function_h(self):
-		self.h = float(self.actualnode.euclidean_distance(finish))
+		n = finish()
+		self.h = float(self.actualnode.euclidean_distance(n))
 		return self.h
 	def function_f(self):
 		self.f = self.g + self.h + self.actualnode.penalty 

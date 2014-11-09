@@ -5,10 +5,12 @@ Juan Luis Pérez Valbuena
 Ingeniería del Conocimiento - Práctica 1 - Algoritmo A* 
 
 '''
+from node import Node
+
+
 
 import math
 from globalsA import *
-from node import *
 from utils import *
 from position import *
 from aStarUtils import *
@@ -24,9 +26,6 @@ start_set_y = -1
 finish_set_x = -1
 finish_set_y = -1 
 
-origin = Node(2,3,False,0)
-finish = Node(5,0,False,0)
-
 def handleTableClick(row,column):
 	global start_set_x
 	global start_set_y
@@ -35,7 +34,7 @@ def handleTableClick(row,column):
 	global origin
 	global finish
 
-	print "(%d, %d)" % (row , column)
+	#print "(%d, %d)" % (row , column)
 	table = mySW.ui.mainboard
 	#table.setItem(row, column, QtGui.QTableWidgetItem())
 		
@@ -46,7 +45,7 @@ def handleTableClick(row,column):
 		table.item(row,column).setIcon(icon2)
 		start_set_x = column
 		start_set_y = row
-		origin =  Node(start_set_x,start_set_y,False,0)
+		set_origin(Node(start_set_x,start_set_y,False,0))
 	else:
 		if(finish_set_x == -1 or finish_set_y==-1):
 			#table.item(row, column).setText("FINISH")
@@ -56,7 +55,7 @@ def handleTableClick(row,column):
 			
 			finish_set_x = column
 			finish_set_y = row
-			finish = Node(finish_set_x,finish_set_y,False,0)
+			set_finish(Node(finish_set_x,finish_set_y,False,0))
 		else: # Start and finished was set , reseting
 			 clean_board()
 			 paint_obstacles()
@@ -68,7 +67,7 @@ def handleTableClick(row,column):
 			 table.item(row, column).setIcon(icon2)
 			 start_set_x = column
 			 start_set_y = row
-			 origin =  Node(start_set_x,start_set_y,False,0) 
+			 set_origin(Node(start_set_x,start_set_y,False,0))
 
 	#table.item(row, column).setBackground(QtGui.QColor(100,100,150))
 	table.item(row, column).setSelected(False)
@@ -200,7 +199,7 @@ def solve_a_star():
 	calcular la función de coste f(n), siendo ahora g(n) = 0 y h(n) la distancia entre la posición actual y la meta.'''
 	open_list = []
 	
-	origin_position = Position(origin,origin)
+	origin_position = Position(origin(),origin())
 	origin_position.is_open = True
 	open_list.append(origin_position)
 	calculate_open_list(open_list)
@@ -215,7 +214,7 @@ def solve_a_star():
 				obs.is_open=False
 				open_list.append(obs)
 
-	print map1
+	#print map1
 
 	'''3. 
 	Realizar expansion.
@@ -233,7 +232,7 @@ def solve_a_star():
 	calcular el menor coste de entre el que ya tenía y el recién calculado: min(nuevo f(n), viejo f(n)).'''
 	'''Ir al paso 3'''
 
-	while selected_node is not None and selected_node.actualnode != finish  :
+	while selected_node is not None and selected_node.actualnode != finish()  :
 		candidates = make_expansion(selected_node.actualnode,map1)
 		for c in candidates:
 			exist_node = False

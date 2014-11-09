@@ -25,5 +25,22 @@ def lower_limit_y():
 	LOWER_LIMIT_Y = 0
 	return LOWER_LIMIT_Y
 
+def set_origin(node):
+	global origin 
+	origin = node
+
+def origin():
+	global origin
+	return origin
+
+def set_finish(node):
+	global finish 
+	finish = node
+
+def finish():
+	global finish
+	return finish
+
+
 
 
